@@ -35,12 +35,23 @@ The Github series provides a guide to working with any manipulators designed in 
 
 <a name="fk"></a>  
 ### Forward Kinematics
+
+``````
+7_r_edu_control\7_r_edu_control\fk.py
+
+``````
+
 <img src="assets/fk1.jpg" alt="Description of second image" width="69%">
 <img src="assets/fk2.jpg" alt="Description of second image" width="69%">
 <img src="assets/fk3.jpg" alt="Description of second image" width="69%">
 
 <a name="vk"></a>  
 ### Velocity Kinematics (Jacobian, Singularity, manipulability and Static force)
+
+``````
+7_r_edu_control\7_r_edu_control\vk.py
+
+``````
 
 <img src="assets/vk1.jpg" alt="Description of second image" width="69%">
 <img src="assets/vk2.jpg" alt="Description of second image" width="69%">
@@ -49,6 +60,11 @@ The Github series provides a guide to working with any manipulators designed in 
 
 <a name="ik"></a>  
 ### Inverse Kinematics
+
+``````
+yet to add
+
+``````
 
 <img src="assets/ik1.jpg" alt="Description of second image" width="69%">
 <img src="assets/ik2.jpg" alt="Description of second image" width="69%">
