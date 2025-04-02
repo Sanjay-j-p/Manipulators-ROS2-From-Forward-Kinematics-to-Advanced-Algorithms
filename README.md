@@ -2,7 +2,10 @@
 This series provides an in-depth guide to working with manipulators[7 DOF] in ROS2 simulation, covering everything from  Forward Kinematics (FK) to implementing complex motion planning and control algorithms. 
 
 ![alt text](assets/image.png)![alt text](assets/gazebo.png)
-
+<div style="display: flex; justify-content: space-between;">
+  <img src="assets/image.png" alt="Description of first image" width="49%">
+  <img src="assets/gazebo.png" alt="Description of second image" width="49%">
+</div>
 ### Milestones
 
 - [x] URDF and Rviz
