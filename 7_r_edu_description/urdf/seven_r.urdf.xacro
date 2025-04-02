@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="7_dof_robot">
+  <xacro:arg name="prefix" default="" />
+
+  
+  <xacro:include filename="$(find 7_r_edu_description)/urdf/seven_r_description.urdf.xacro" />
+
+  
+  <xacro:include filename="$(find 7_r_edu_description)/urdf/seven_r.materials.xacro" />
+
+  
+  <xacro:include filename="$(find 7_r_edu_description)/urdf/seven_r.ros2_control.xacro" />
+
+  <xacro:include filename="$(find 7_r_edu_description)/urdf/seven_r.gazebo.xacro" />
+
+  
+  <link name="world"/>
+  <gazebo reference="world">
+    <static>true</static>
+  </gazebo>
+
+  <xacro:seven_r parent="world" prefix="$(arg prefix)">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:seven_r>
+
+  <xacro:seven_r_edu_gazebo prefix="$(arg prefix)" />
+  
+  <xacro:seven_r_ros2_control
+    name="seven_r" prefix="$(arg prefix)" />
+
+</robot>

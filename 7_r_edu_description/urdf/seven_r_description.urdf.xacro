@@ -1,0 +1,374 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Define inertia macros -->
+  <xacro:macro name="box_inertia" params="mass x y z origin_xyz origin_rpy">
+    <inertial>
+      <origin xyz="${origin_xyz}" rpy="${origin_rpy}"/>
+      <mass value="${mass}"/>
+      <inertia ixx="${mass * (y*y + z*z) / 12}" ixy="0" ixz="0"
+               iyy="${mass * (x*x + z*z) / 12}" iyz="0"
+               izz="${mass * (x*x + y*y) / 12}"/>
+    </inertial>
+  </xacro:macro>
+
+  <xacro:macro name="cylinder_inertia" params="mass radius length origin_xyz origin_rpy">
+    <inertial>
+      <origin xyz="${origin_xyz}" rpy="${origin_rpy}"/>
+      <mass value="${mass}"/>
+      <inertia ixx="${mass * (3 * radius * radius + length * length) / 12}" ixy="0" ixz="0"
+               iyy="${mass * (3 * radius * radius + length * length) / 12}" iyz="0"
+               izz="${mass * (radius * radius) / 2}"/>
+    </inertial>
+  </xacro:macro>
+
+  <!-- Main macro for the robot -->
+  <xacro:macro name="seven_r" params="parent prefix *origin">
+
+    <xacro:property name="mass" value="1.0" />
+    <xacro:property name="length" value="0.04" />
+    <xacro:property name="radius" value="0.2" />
+    <xacro:property name="x" value="0.15" />
+    <xacro:property name="y" value="0.15" />
+    <xacro:property name="z" value="0.3" />
+  
+    <!-- Base Joint -->
+    <joint name="${prefix}base_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${prefix}base_link" />
+    </joint>
+
+    <!-- Base Link -->
+    <link name="${prefix}base_link">
+      <collision>
+        <origin xyz="0 0 ${length/2}" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="${length}" radius="${radius}"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="0 0 ${length/2}" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="${length}" radius="${radius}"/>
+        </geometry>
+        <material name="orange"/>
+      </visual>
+
+      <!-- Use cylinder_inertia macro -->
+      <xacro:cylinder_inertia mass="${mass}" radius="${radius}" length="${length}" origin_xyz="0 0 ${length/2}" origin_rpy="0 0 0"/>
+    </link>
+
+    <!-- Joint 1 -->
+    <joint name="${prefix}joint1" type="continuous">
+      <parent link="${prefix}base_link"/>
+      <child link="${prefix}link1"/>
+      <origin xyz="0 0 ${(z/2+length)+0.05}" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <dynamics damping="0.7"/>
+    </joint>
+
+    <!-- Link 1 -->
+    <link name="${prefix}link1">
+      <collision>
+        <origin xyz="0 0 -0.05" rpy="0 0 0"/>
+        <geometry>
+          <box size="${x} ${y} ${z}"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="0 0 -0.05" rpy="0 0 0"/>
+        <geometry>
+          <box size="${x} ${y} ${z}"/>
+        </geometry>
+        <material name="yellow"/>
+      </visual>
+
+      <!-- Use box_inertia macro -->
+      <xacro:box_inertia mass="${mass}" x="${x}" y="${y}" z="${z} " origin_xyz="0 0 -0.05" origin_rpy="0 0 0"/>
+    </link>
+
+    <!-- Joint 2 -->
+    <joint name="${prefix}joint2" type="continuous">
+      <parent link="${prefix}link1"/>
+      <child link="${prefix}link2"/>
+      <origin xyz="${x} 0 0" rpy="0 1.5708 0"/>
+      <axis xyz="0 0 1"/>
+      <dynamics damping="0.7"/>
+    </joint>
+
+    <!-- Link 2 -->
+    <link name="${prefix}link2">
+      <collision>
+        <origin xyz="-0.08 0 0" rpy="0 1.5708 0"/>
+        <geometry>
+          <box size="${x} ${y} ${z}"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="-0.08 0 0" rpy="0 1.5708 0"/>
+        <geometry>
+          <box size="${x} ${y} ${z}"/>
+        </geometry>
+        <material name="orange"/>
+      </visual>
+
+      <!-- Use box_inertia macro -->
+      <xacro:box_inertia mass="${mass}" x="${x}" y="${y}" z="${z}" origin_xyz="-0.08 0 0" origin_rpy="0 1.5708 0"/>
+    </link>
+
+    <!-- Joint 3 -->
+    <joint name="${prefix}joint3" type="continuous">
+      <!-- <limit upper="${link3_length - 2*axel_offset}" lower="0" effort="50" velocity="10.0"/> -->
+      <parent link="${prefix}link2"/>
+      <child link="${prefix}link3"/>
+      <origin xyz="${-z-0.08-0.05} 0 0" rpy="0 -1.5708 0"/>
+      <axis xyz="0 0 1"/>
+      <dynamics damping="0.7"/>
+    </joint>
+
+    <!-- Link 3 -->
+    <link name="${prefix}link3">
+      <collision>
+        <origin xyz="0 0 -0.05" rpy="0 0 0"/>
+        <geometry>
+          <box size="${x} ${y} ${z}"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="0 0 -0.05" rpy="0 0 0"/>
+        <geometry>
+          <box size="${x} ${y} ${z}"/>
+        </geometry>
+        <material name="yellow"/>
+      </visual>
+
+      <!-- Use box_inertia macro -->
+      <xacro:box_inertia mass="${mass}" x="${x}" y="${y}" z="${z}" origin_xyz="0 0 -0.05" origin_rpy="0 0 0"/>
+    </link>
+
+    <joint name="${prefix}joint4" type="continuous">
+      <!-- <limit upper="${link3_length - 2*axel_offset}" lower="0" effort="50" velocity="10.0"/> -->
+      <parent link="${prefix}link3"/>
+      <child link="${prefix}link4"/>
+      <origin xyz="${-x} 0 0" rpy="0 -1.5708 0"/>
+      <axis xyz="0 0 1"/>
+      <dynamics damping="0.7"/>
+    </joint>
+
+    <!-- Link 4-->
+    <link name="${prefix}link4">
+      <collision>
+        <origin xyz="0.08 0 0" rpy="0 1.5708 0"/>
+        <geometry>
+          <box size="${x} ${y} ${z}"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="0.08 0 0" rpy="0 1.5708 0"/>
+        <geometry>
+          <box size="${x} ${y} ${z}"/>
+        </geometry>
+        <material name="orange"/>
+      </visual>
+
+      <!-- Use box_inertia macro -->
+      <xacro:box_inertia mass="${mass}" x="${x}" y="${y}" z="${z} " origin_xyz="0.08 0 0" origin_rpy="0 1.5708 0"/>
+    </link>
+
+    <joint name="${prefix}joint5" type="continuous">
+      <!-- <limit upper="${link3_length - 2*axel_offset}" lower="0" effort="50" velocity="10.0"/> -->
+      <parent link="${prefix}link4"/>
+      <child link="${prefix}link5"/>
+      <origin xyz="${z+0.08+0.05} 0 0" rpy="0 1.5708 0"/>
+      <axis xyz="0 0 1"/>
+      <dynamics damping="0.7"/>
+    </joint>
+
+    <!-- Link 5 -->
+    <link name="${prefix}link5">
+      <collision>
+        <origin xyz="0 0 -0.05" rpy="0 0 0"/>
+        <geometry>
+          <box size="${x} ${y} ${z}"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="0 0 -0.05" rpy="0 0 0"/>
+        <geometry>
+          <box size="${x} ${y} ${z}"/>
+        </geometry>
+        <material name="yellow"/>
+      </visual>
+
+      <!-- Use box_inertia macro -->
+      <xacro:box_inertia mass="${mass}" x="${x}" y="${y}" z="${z}" origin_xyz="0 0 -0.05" origin_rpy="0 0 0"/>
+    </link>
+
+
+
+    <joint name="${prefix}joint6" type="continuous">
+      <!-- <limit upper="${link3_length - 2*axel_offset}" lower="0" effort="50" velocity="10.0"/> -->
+      <parent link="${prefix}link5"/>
+      <child link="${prefix}link6"/>
+      <origin xyz="${x} 0 0" rpy="-3.14 -1.5708 0"/>
+      <axis xyz="0 0 1"/>
+      <dynamics damping="0.7"/>
+    </joint>
+
+    <!-- Link 6-->
+    <link name="${prefix}link6">
+      <collision>
+        <origin xyz="0.08 0 0" rpy="0 1.5708 0"/>
+        <geometry>
+          <box size="${x} ${y} ${z}"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="0.08 0 0" rpy="0 1.5708 0"/>
+        <geometry>
+          <box size="${x} ${y} ${z}"/>
+        </geometry>
+        <material name="orange"/>
+      </visual>
+
+      <!-- Use box_inertia macro -->
+      <xacro:box_inertia mass="${mass}" x="${x}" y="${y}" z="${z}" origin_xyz="0.08 0 0.0" origin_rpy="0 1.5708 0"/>
+    </link>
+
+    <joint name="${prefix}joint7" type="continuous">
+      <!-- <limit upper="${link3_length - 2*axel_offset}" lower="0" effort="50" velocity="10.0"/> -->
+      <parent link="${prefix}link6"/>
+      <child link="${prefix}link7"/>
+      <origin xyz="${x+0.08} 0 0" rpy=" 0 1.5708 0"/>
+      <axis xyz="0 0 1"/>
+      <dynamics damping="0.7"/>
+    </joint>
+
+
+    <link name="${prefix}link7">
+      <collision>
+        <origin xyz="0 0 ${length/2}" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="${length}" radius="${radius/2}"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="0 0 ${length/2}" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="${length}" radius="${radius/2}"/>
+        </geometry>
+        <material name="yellow"/>
+      </visual>
+
+      <!-- Use cylinder_inertia macro -->
+      <xacro:cylinder_inertia mass="${mass}" radius="${radius/2}" length="${length} " origin_xyz="0 0 ${length/2}" origin_rpy="0 0 0"/>
+    </link>
+
+
+
+    <joint name="${prefix}tool_joint" type="fixed">
+      <origin xyz="0 0 ${length+0.02/2}" rpy="0 0 0"/>
+      <parent link="${prefix}link7"/>
+      <child link="${prefix}gripper_base" />
+    </joint>
+
+
+    <!-- Gripper Base -->
+    <link name="gripper_base">
+        <collision>
+            <geometry>
+                <box size="0.2 0.1 0.02"/>
+            </geometry>
+            
+        </collision>
+        <visual>
+            <geometry>
+                <box size="0.2 0.1 0.02"/>
+            </geometry>
+            <material name="gray">
+                <color rgba="0.5 0.5 0.5 1.0"/>
+            </material>
+        </visual>
+      <xacro:box_inertia mass="${mass}" x="0.2" y="0.1" z="0.02" origin_xyz="0 0 0" origin_rpy="0 0 0"/>
+
+    </link>
+
+    <link name="finger_right">
+    <collision>
+            <origin xyz="-0.02 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.02 0.04 0.1"/>
+            </geometry>
+          
+        </collision>
+    <visual>
+      <geometry>
+        <box size="0.02 0.04 0.1"/>
+      </geometry>
+      <origin xyz="-0.02 0 0" rpy="0 0 0"/>
+      <material name="grey">
+        <color rgba="0.2 0.2 0.2 1"/>
+      </material>
+    </visual>
+    <xacro:box_inertia mass="${mass}" x="0.02" y="0.04" z="0.1" origin_xyz="-0.02 0 0" origin_rpy="0 0 0"/>
+  </link>
+  <link name="finger_left">
+    <collision>
+      <geometry>
+          <box size="0.02 0.04 0.1"/>
+      </geometry>
+      <origin xyz="0.02 0 0" rpy="0 0 0"/>
+          
+    </collision>
+    <visual>
+      <geometry>
+        <box size="0.02 0.04 0.1"/>
+      </geometry>
+      <origin xyz="0.02 0 0" rpy="0 0 0"/>
+      <material name="grey">
+        <color rgba="0.2 0.2 0.2 1"/>
+      </material>
+    </visual>
+    <xacro:box_inertia mass="${mass}" x="0.02" y="0.04" z="0.1" origin_xyz="0.02 0 0" origin_rpy="0 0 0"/>
+
+  </link>
+  
+  <joint name="right_finger_joint" type="prismatic">
+    <axis xyz="-1 0 0"/>
+    <origin xyz="-0.02 0.0 0.06" rpy="0.0 0.0 0.0"/>
+    <parent link="gripper_base"/>
+    <child link="finger_right"/>
+    <limit effort="1000.0" lower="-0.025" upper="0.05" velocity="10"/>
+  </joint>
+  <joint name="left_finger_joint" type="prismatic">
+    <mimic joint="right_finger_joint"/>
+    <axis xyz="1 0 0"/>
+    <origin xyz="0.02 0.0 0.06" rpy="0.0 0.0 0"/>
+    <parent link="gripper_base"/>
+    <child link="finger_left"/>
+    <limit effort="1000.0" lower="-0.025" upper="0.05" velocity="10"/>
+  </joint>
+
+
+
+    <joint name="${prefix}end_joint" type="fixed">
+      <origin xyz="0 0 0.12" rpy="0 0 0"/>
+      <parent link="gripper_base"/>
+      <child link="${prefix}end_link" />
+    </joint>
+
+
+  
+    <link name="${prefix}end_link">
+    </link>
+  </xacro:macro>
+</robot>
