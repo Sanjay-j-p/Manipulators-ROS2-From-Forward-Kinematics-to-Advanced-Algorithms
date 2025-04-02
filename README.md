@@ -35,9 +35,21 @@ The Github series provides a guide to working with any manipulators designed in 
 
 <a name="fk"></a>  
 ### Forward Kinematics
+<img src="assets/fk1.png" alt="Description of second image" width="49%">
+<img src="assets/fk2.png" alt="Description of second image" width="49%">
+<img src="assets/fk3.png" alt="Description of second image" width="49%">
 
 <a name="vk"></a>  
 ### Velocity Kinematics (Jacobian, Singularity, manipulability and Static force)
 
+<img src="assets/vk1.png" alt="Description of second image" width="49%">
+<img src="assets/vk2.png" alt="Description of second image" width="49%">
+<img src="assets/vk3.png" alt="Description of second image" width="49%">
+
+
 <a name="ik"></a>  
 ### Inverse Kinematics
+
+<img src="assets/ik1.png" alt="Description of second image" width="49%">
+<img src="assets/ik2.png" alt="Description of second image" width="49%">
+<img src="assets/ik3.png" alt="Description of second image" width="49%">
