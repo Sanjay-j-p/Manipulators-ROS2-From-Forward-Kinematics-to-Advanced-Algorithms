@@ -1,7 +1,7 @@
 # Manipulators-ROS2-From-Forward-Kinematics-to-Advanced-Algorithms
 The Github series provides a guide to working with any manipulators designed in CAD or manually created URDF and in ROS2 simulation, implementing from Forward Kinematics (FK) to complex motion planning and control algorithms. The equation and some concepts were implemented from the <a href="https://hades.mech.northwestern.edu/index.php/Modern_Robotics"> Modern Robotics </a>
 
-### will update soon the instrution for installation and uses.
+### ***will update soon the instrution for installation and using the files in ROS 2 Humble***
 
 ### Milestones
 
@@ -37,6 +37,9 @@ The Github series provides a guide to working with any manipulators designed in 
   <img src="assets/gazebo.png" alt="Description of second image" width="29%">
 </div>
 
+-----------------------------------------------------------------------------------------------------------
+
+
 <a name="fk"></a>  
 ### Forward Kinematics
 
@@ -48,6 +51,10 @@ The Github series provides a guide to working with any manipulators designed in 
 <img src="assets/fk2.jpg" alt="Description of second image" width="69%">
 <img src="assets/fk3.jpg" alt="Description of second image" width="69%">
 
+
+-----------------------------------------------------------------------------------------------------------
+
+
 <a name="vk"></a>  
 ### Velocity Kinematics (Jacobian, Singularity, manipulability and Static force)
 
@@ -58,6 +65,9 @@ The Github series provides a guide to working with any manipulators designed in 
 <img src="assets/vk1.jpg" alt="Description of second image" width="69%">
 <img src="assets/vk2.jpg" alt="Description of second image" width="69%">
 <img src="assets/vk3.jpg" alt="Description of second image" width="69%">
+
+
+-----------------------------------------------------------------------------------------------------------
 
 
 <a name="ik"></a>  
