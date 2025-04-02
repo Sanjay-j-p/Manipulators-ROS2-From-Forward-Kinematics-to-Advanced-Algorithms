@@ -25,9 +25,9 @@ The Github series provides a guide to working with any manipulators designed in 
   
 </div>
 
-``````
+
 -----------------------------------------------------------------------------------------------------------
-``````
+
 
 <a name="gazebo"></a>  
 ### Gazebo Ignition and ROS controls Integration
