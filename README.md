@@ -22,6 +22,7 @@ This series provides an in-depth guide to working with manipulators[7 DOF] in RO
                             <li><input type="checkbox"> Admittance Control</li>
                             <li><input type="checkbox"> Motion Planning</li>
                         </ul>
+                    </div>
 ### Milestones
 
 - [x] URDF and Rviz
