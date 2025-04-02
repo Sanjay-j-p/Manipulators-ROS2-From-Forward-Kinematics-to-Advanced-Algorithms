@@ -1,5 +1,5 @@
 # Manipulators-ROS2-From-Forward-Kinematics-to-Advanced-Algorithms
-This series provides an in-depth guide to working with manipulators[7 DOF] in ROS2 simulation, covering everything from  Forward Kinematics (FK) to implementing complex motion planning and control algorithms. 
+The Github series provides a guide to working with any manipulators designed in CAD or manually created URDF and in ROS2 simulation, implementing from Forward Kinematics (FK) to complex motion planning and control algorithms. The equation and some concepts were implemented from the Modern Robotics book.
 
 ### Milestones
 
