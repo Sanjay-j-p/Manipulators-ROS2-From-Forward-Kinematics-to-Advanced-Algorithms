@@ -25,6 +25,10 @@ The Github series provides a guide to working with any manipulators designed in 
   
 </div>
 
+``````
+-----------------------------------------------------------------------------------------------------------
+``````
+
 <a name="gazebo"></a>  
 ### Gazebo Ignition and ROS controls Integration
 
@@ -38,7 +42,6 @@ The Github series provides a guide to working with any manipulators designed in 
 
 ``````
 7_r_edu_control\7_r_edu_control\fk.py
-
 ``````
 
 <img src="assets/fk1.jpg" alt="Description of second image" width="69%">
@@ -50,7 +53,6 @@ The Github series provides a guide to working with any manipulators designed in 
 
 ``````
 7_r_edu_control\7_r_edu_control\vk.py
-
 ``````
 
 <img src="assets/vk1.jpg" alt="Description of second image" width="69%">
@@ -63,7 +65,6 @@ The Github series provides a guide to working with any manipulators designed in 
 
 ``````
 yet to add
-
 ``````
 
 <img src="assets/ik1.jpg" alt="Description of second image" width="69%">
